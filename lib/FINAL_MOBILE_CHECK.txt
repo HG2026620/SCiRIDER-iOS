@@ -1,0 +1,24 @@
+SCiRider Mobile - Final PO Approval Check (Pixel_6)
+
+Reviewed lib directory.
+Updated PO Approval screen:
+- PO detail continues to use ApprovalTxnId (not OrderId).
+- Added Last Approved By section.
+- Uses API lastApprovedBy when available.
+- Falls back to latest Approved row from approvalHistory for older API responses.
+- Approval History remains visible.
+- Approve/Reject remains connected to existing API service.
+- Action visibility now prefers canApprove/canReject API flags when supplied, with backward-compatible Pending + isCurrentLevel fallback.
+- Successful Approve/Reject returns true so My Approvals refreshes.
+
+NFA:
+- Existing NFA route/screen/service retained unchanged because NFA approval was reported as not working in the previous version and should be debugged separately rather than risk the PO final-check build.
+
+Pixel_6 test:
+flutter clean
+flutter pub get
+flutter emulators --launch Pixel_6
+flutter run
+
+Test path:
+Login -> My Approvals -> PO -> Pending PO -> PO Detail -> Last Approved By -> Approval Workflow -> Remark -> Approve/Reject -> Back -> list refresh.
